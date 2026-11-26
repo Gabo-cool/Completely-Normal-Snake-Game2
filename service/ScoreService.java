@@ -47,7 +47,7 @@ public class ScoreService {
             throws InvalidPlayerNameException, DatabaseException {
         String name = validateName(player);
         if (points < 0) {
-            throw new IllegalArgumentException("Score cannot be negative.");   // MODULE 5: throw
+            throw new IllegalArgumentException("Score cannot be negative.");   
         }
         Score score = new Score(0, name, points, difficulty.toString(),
                 LocalDateTime.now().format(STAMP));
@@ -73,7 +73,7 @@ public class ScoreService {
     }
 
     public boolean delete(int id) throws DatabaseException {
-        return dao.deleteById(id);                    // autoboxing int -> Integer
+        return dao.deleteById(id);                    
     }
 
     public int bestScore() throws DatabaseException {
@@ -88,7 +88,7 @@ public class ScoreService {
     public int rankOf(int points) throws DatabaseException {
         List<Integer> sorted = new ArrayList<>();
         for (Score s : dao.findAll()) {
-            sorted.add(s.points());                   // autoboxing
+            sorted.add(s.points());                   
         }
         sorted.sort(Collections.reverseOrder());
         int index = Collections.binarySearch(sorted, points, Collections.reverseOrder());
