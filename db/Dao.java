@@ -5,9 +5,9 @@ import java.util.List;
 
 public interface Dao<T, K> {
 
-    void insert(T item) throws DatabaseException;      // C - create
+    void insert(T item) throws DatabaseException;      
 
-    List<T> findAll() throws DatabaseException;        // R - read
+    List<T> findAll() throws DatabaseException;        
 
-    boolean deleteById(K id) throws DatabaseException; // D - delete
+    boolean deleteById(K id) throws DatabaseException; 
 }
