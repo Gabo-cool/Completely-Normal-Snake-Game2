@@ -9,8 +9,8 @@ public final class GameConfig {
     public static final int COLUMNS = 24;
     public static final int ROWS = 24;
     public static final int CELL = 25;
-    public static final int SCREEN_WIDTH = COLUMNS * CELL;    // 600 (arithmetic operator)
-    public static final int SCREEN_HEIGHT = ROWS * CELL;      // 600
+    public static final int SCREEN_WIDTH = COLUMNS * CELL;    
+    public static final int SCREEN_HEIGHT = ROWS * CELL;      
     public static final int START_LENGTH = 4;
     public static final String PLAYER_NAME_PATTERN = "[A-Za-z0-9_ ]{1,12}";
 
@@ -23,7 +23,7 @@ public final class GameConfig {
     private static final Map<String, Integer> VALUES = load();
 
     private GameConfig() {
-        // utility class: no objects needed
+
     }
 
     private static Map<String, Integer> load() {
@@ -34,14 +34,14 @@ public final class GameConfig {
                 if (line.isEmpty()) {
                     continue;
                 }
-                String[] parts = line.split("=");              // array of String
-                map.put(parts[0], Integer.parseInt(parts[1])); // autoboxing int -> Integer
+                String[] parts = line.split("=");              
+                map.put(parts[0], Integer.parseInt(parts[1])); 
             }
         }
         return map;
     }
 
     public static int get(String key) {
-        return VALUES.getOrDefault(key, 0);                    // unboxing Integer -> int
+        return VALUES.getOrDefault(key, 0);                    
     }
 }
