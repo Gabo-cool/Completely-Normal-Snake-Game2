@@ -29,7 +29,7 @@ public class ClockThread extends Thread {
                 }
             }
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();   // keep the interrupt flag, then leave run()
+            Thread.currentThread().interrupt();   
         } finally {
             System.out.println("[ClockThread] stopped");
         }
