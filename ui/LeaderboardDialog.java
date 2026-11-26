@@ -105,7 +105,7 @@ public class LeaderboardDialog extends JDialog {
         }
     }
 
-    /** @return the database id of the selected row, or -1 when nothing is selected */
+    
     private int selectedId() {
         int viewRow = table.getSelectedRow();
         if (viewRow < 0) {
@@ -114,7 +114,7 @@ public class LeaderboardDialog extends JDialog {
             return -1;
         }
         int modelRow = table.convertRowIndexToModel(viewRow);
-        return (Integer) model.getValueAt(modelRow, 0);          // unboxing
+        return (Integer) model.getValueAt(modelRow, 0);          
     }
 
     private void renameSelected() {
