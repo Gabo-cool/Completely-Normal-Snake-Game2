@@ -30,7 +30,7 @@ public class GamePanel extends JPanel implements ActionListener {
     private final GameEngine engine = new GameEngine();
     private final Timer timer;
     private Difficulty difficulty = Difficulty.NORMAL;
-    private GameListener listener = new GameListener() { };      // do-nothing default, never null
+    private GameListener listener = new GameListener() { };      
 
     public GamePanel() {
         setPreferredSize(new Dimension(GameConfig.SCREEN_WIDTH, GameConfig.SCREEN_HEIGHT));
@@ -40,7 +40,7 @@ public class GamePanel extends JPanel implements ActionListener {
         setupKeyBindings();
     }
 
-    // ------------------------------------------------------------------ input
+    // input
 
     private void setupKeyBindings() {
         bind("LEFT", () -> steer(Direction.LEFT));
@@ -73,7 +73,7 @@ public class GamePanel extends JPanel implements ActionListener {
         engine.turn(d);
     }
 
-    // ---------------------------------------------------------------- control
+    // control
 
     public void startOrRestart() {
         switch (engine.getState()) {
@@ -84,13 +84,13 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
 
-    /** Resets everything and starts at once (New Game button). */
+   
     public void newGame() {
         prepare();
         beginRun();
     }
 
-    /** Resets everything and waits in the READY state. */
+    
     public void prepare() {
         timer.stop();
         engine.reset();
@@ -145,7 +145,7 @@ public class GamePanel extends JPanel implements ActionListener {
         this.listener = listener;
     }
 
-    // ------------------------------------------------------------------- tick
+    
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -164,13 +164,12 @@ public class GamePanel extends JPanel implements ActionListener {
         if (state == GameEngine.State.GAME_OVER || state == GameEngine.State.WON) {
             timer.stop();
             listener.onStateChanged(state);
-            // Let the "Game Over" frame paint before the (modal) name dialog opens.
             SwingUtilities.invokeLater(() -> listener.onGameEnded(engine.getScore()));
         }
         repaint();
     }
 
-    // ---------------------------------------------------------------- drawing
+    // drawing
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -184,7 +183,7 @@ public class GamePanel extends JPanel implements ActionListener {
                 ? new GameObject[]{engine.getSnake()}
                 : new GameObject[]{engine.getFood(), engine.getSnake()};
         for (GameObject obj : objects) {
-            obj.draw(g2, GameConfig.CELL);                   // dynamic method dispatch
+            obj.draw(g2, GameConfig.CELL);                  
         }
 
         drawScoreBox(g2);
