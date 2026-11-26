@@ -34,7 +34,7 @@ public abstract class Food extends GameObject {
 
         g.setColor(new Color(0, 0, 0, 45));                       // shadow
         g.fillOval(x + pad + 2, y + pad + 4, size, size);
-        g.setColor(getColor());                                   // body (polymorphic call)
+        g.setColor(getColor());                                   // body 
         g.fillOval(x + pad, y + pad + 2, size, size);
         g.setColor(new Color(255, 255, 255, 90));                 // highlight
         g.fillOval(x + pad + 3, y + pad + 4, size / 2, size / 2);
