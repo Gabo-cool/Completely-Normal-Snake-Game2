@@ -22,7 +22,7 @@ public class GameEngine implements Resettable {
     public enum State { READY, RUNNING, PAUSED, GAME_OVER, WON }
 
     private final Snake snake;
-    private final Deque<Direction> pendingTurns = new ArrayDeque<>();   // MODULE 6: queue of turns
+    private final Deque<Direction> pendingTurns = new ArrayDeque<>();   
     private final Random random = new Random();
     private Food food;
     private Food lastEaten;
