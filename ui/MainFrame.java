@@ -44,7 +44,7 @@ public class MainFrame extends JFrame implements GameListener {
         super("Snake Game");
         this.service = service;
 
-        // ----- top: statistics (GridLayout = equal-sized cells)
+        
         JPanel top = new JPanel(new GridLayout(1, 4, 8, 0));
         top.setBorder(BorderFactory.createEmptyBorder(6, 6, 6, 6));
         top.add(scoreLabel);
@@ -52,7 +52,7 @@ public class MainFrame extends JFrame implements GameListener {
         top.add(timeLabel);
         top.add(bestLabel);
 
-        // ----- bottom: controls (FlowLayout) + status line, nested in a BorderLayout panel
+        
         JButton newBtn = new JButton("New Game");
         JButton pauseBtn = new JButton("Pause");
         JButton boardBtn = new JButton("Leaderboard");
@@ -60,7 +60,7 @@ public class MainFrame extends JFrame implements GameListener {
         JComboBox<Difficulty> levelBox = new JComboBox<>(Difficulty.values());
         levelBox.setSelectedItem(Difficulty.NORMAL);
 
-        // Keep keyboard focus on the game so the arrow keys steer the snake.
+        
         for (var control : new JComponent[]{newBtn, pauseBtn, boardBtn, aboutBtn, levelBox}) {
             control.setFocusable(false);
         }
@@ -82,7 +82,7 @@ public class MainFrame extends JFrame implements GameListener {
         add(panel, BorderLayout.CENTER);
         add(bottom, BorderLayout.SOUTH);
 
-        // ----- event listeners (lambdas)
+        
         newBtn.addActionListener(e -> {
             panel.newGame();
             panel.requestFocusInWindow();
@@ -94,7 +94,7 @@ public class MainFrame extends JFrame implements GameListener {
 
         panel.setGameListener(this);
 
-        // ----- background clock thread
+        
         clock = new ClockThread(seconds -> SwingUtilities.invokeLater(
                 () -> timeLabel.setText(String.format("Time: %02d:%02d", seconds / 60, seconds % 60))));
         clock.start();
@@ -110,10 +110,10 @@ public class MainFrame extends JFrame implements GameListener {
         pack();
         setLocationRelativeTo(null);
         panel.prepare();
-        SwingUtilities.invokeLater(panel::requestFocusInWindow);   // MODULE 5: method reference
+        SwingUtilities.invokeLater(panel::requestFocusInWindow);   
     }
 
-    // ------------------------------------------------------ GameListener events
+    
 
     @Override
     public void onNewGame() {
@@ -125,7 +125,7 @@ public class MainFrame extends JFrame implements GameListener {
     public void onScoreChanged(int score) {
         scoreLabel.setText("Score: " + score);
         int length = panel.getEngine().getSnake().length();
-        // MODULE 2 PROOF: explicit cast (double) so the division is not integer division
+        
         double fill = (double) length / (GameConfig.COLUMNS * GameConfig.ROWS) * 100;
         lengthLabel.setText(String.format("Length: %d (%.1f%%)", length, fill));
     }
@@ -151,9 +151,7 @@ public class MainFrame extends JFrame implements GameListener {
         promptAndSave(score);
     }
 
-    // ------------------------------------------------------------ saving a score
-
-    /** MODULE 2 PROOF: do-while loop - the prompt must show at least once. */
+    
     private void promptAndSave(int score) {
         String name = null;
         boolean done = false;
@@ -166,7 +164,7 @@ public class MainFrame extends JFrame implements GameListener {
                 done = true;
             } else {
                 try {
-                    name = service.validateName(input.toString());    // MODULE 8: validate first
+                    name = service.validateName(input.toString());    
                     done = true;
                 } catch (InvalidPlayerNameException ex) {
                     JOptionPane.showMessageDialog(this, ex.getMessage(), "Invalid name",
@@ -182,12 +180,12 @@ public class MainFrame extends JFrame implements GameListener {
                     message -> SwingUtilities.invokeLater(() -> statusLabel.setText(message))),
                     "score-saver");
             lastSaver = saver;
-            saver.start();                                           // MODULE 7: start(), not run()
+            saver.start();                                           
         }
         panel.requestFocusInWindow();
     }
 
-    // ---------------------------------------------------------------- dialogs
+  
 
     private void showLeaderboard() {
         panel.pauseIfRunning();
@@ -195,7 +193,7 @@ public class MainFrame extends JFrame implements GameListener {
         panel.requestFocusInWindow();
     }
 
-    /** MODULE 1 PROOF: shows the Java platform pieces (JDK version, JVM, OS) at run time. */
+    
     private void showAbout() {
         panel.pauseIfRunning();
         String info = """
@@ -224,7 +222,7 @@ public class MainFrame extends JFrame implements GameListener {
         try {
             clock.join(500);
             if (lastSaver != null) {
-                lastSaver.join(2000);          // let a running save finish before the JVM exits
+                lastSaver.join(2000);          
             }
         } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
