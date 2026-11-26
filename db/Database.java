@@ -35,7 +35,7 @@ public final class Database {
     public static void init() throws DatabaseException {
         try (Connection con = connect();
              Statement st = con.createStatement()) {
-            st.executeUpdate(CREATE_TABLE);                       // DDL uses executeUpdate()
+            st.executeUpdate(CREATE_TABLE);                       
         } catch (SQLException e) {
             logTechnical(e);
             throw new DatabaseException("Could not prepare the score table.", e);
